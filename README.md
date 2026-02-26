@@ -15,5 +15,17 @@ Rigidez: Toda vez que surgir um frete novo (Ex: Frete Fixo), você terá que mex
 
 Insegurança: O desenvolvedor nunca sabe se ao chamar aplicarFrete(), o valor será realmente processado ou ignorado silenciosamente pela subclasse.
 
- A Solução: Padrão Strategy
+# A Solução: Padrão Strategy
 Em vez de herança, usamos composição. O ProcessadorDePagamento agora recebe uma EstrategiaDeFrete. Isso torna o sistema flexível, onde qualquer frete pode substituir outro perfeitamente.
+
+O cálculo do frete estava "preso" dentro da classe Pedido. Isso forçava o uso de herança indevida (PedidoComFreteGratis), quebrando o LSP (Princípio de Liskov) ao forçar comportamentos que o cliente não esperava.
+
+ A Solução:
+Removi a lógica de frete da entidade Pedido (SRP).
+
+Criei a interface EstrategiaDeFrete (Strategy Pattern).
+
+Implementei classes concretas (FretePadrao, FreteGratis) que são intercambiáveis.
+
+ Resultado:
+O ProcessadorDePagamento agora aceita qualquer estratégia de frete sem precisar de if/else ou instanceof. O código ficou flexível, limpo e fácil de expandir.
